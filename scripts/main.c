@@ -17,26 +17,27 @@ int main()
    short height = 6;  // Height of the bar
    
    // Left bar vars
-   int *posYleftB = malloc(sizeof(int)); // Position Y of the left bar
-   *posYleftB = LINES /2 - (height /2); // Middle of screen
-   int posXleftB = COLS /8; // Position X of the left bar (never changes)
+   int *posYleft = malloc(sizeof(int)); // Position Y of the left bar
+   *posYleft = LINES /2 - (height /2); // Middle of screen
+   int posXleft = COLS /8; // Position X of the left bar (never changes)
 
    // Right bar vars
-   int *posYrightB = malloc(sizeof(int)); // Position Y of the right bar
-   *posYrightB = LINES /2 - (height /2); // Middle of screen
-   int posXrightB = COLS /1.2; // Position X of the right bar (never changes)
+   int *posYright = malloc(sizeof(int)); // Position Y of the right bar
+   *posYright = LINES /2 - (height /2); // Middle of screen
+   int posXright = COLS /1.2; // Position X of the right bar (never changes)
 
-   draw_bar(height, posYleftB, posXleftB);
-   draw_bar(height, posYrightB, posXrightB);
+   draw_bar(height, posYleft, posXleft);
+   draw_bar(height, posYright, posXright);
    char input = '0';
    int quit = 0;
    while (quit == 0)
    { 
       input = getch();
-      quit = move_bar(input, height, posYleftB, posXleftB, posYrightB, posXrightB); // Func returns 1 when 'q' is pressed btw
+      quit = move_bar(input, height, posYleft, posXleft, posYright, posXright); // Func returns 1 when 'q' is pressed btw
    }
 
-   free(posYleftB);
+   free(posYleft);
+   free(posYright);
    endwin();
    return 0;
 }
