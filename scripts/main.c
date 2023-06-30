@@ -61,11 +61,13 @@ int main()
    while (quit == 0)
    { 
       input = getch();
-      quit = move_bar(input, height, posYleft, posXleft, posYright, posXright, posYball, posXball); // Func returns 1 when 'q' is pressed btw
+      quit = move_bar(input, height, posYleft, posXleft, posYright, posXright); // Func returns 1 when 'q' is pressed btw
    }
 
    free(posYleft);
    free(posYright);
+   free(posYball);
+   free(posXball);
 
    endwin();
    return 0;
