@@ -1,13 +1,15 @@
 #include <ncurses.h>
 #include <locale.h>
 #include <stdlib.h>
+#include <pthread.h>
 #include "../headers/sprites.h"
 #include "../headers/input.h"
 
 //TODO: 
-// FINISH WRITING "ball_move" function, with all directions
-// WRITE NEW THREAD FOR BALL MOVEMENT
 // BALL DIAGONAL MOVEMENT IS TOO AGRESSIVE ON THE Y POSITION
+// WRITE START MESSAGE/ASCII-ART
+
+void *ball_func();
 
 int main()
 {
@@ -18,7 +20,7 @@ int main()
    curs_set(0);
    noecho();
 
-/*
+
    short height = 6;  // Height of the bar
    
    // Left bar vars
@@ -30,9 +32,14 @@ int main()
    int *posYright = malloc(sizeof(int)); // Position Y of the right bar
    *posYright = LINES /2 - (height /2); // Middle of screen
    int posXright = COLS /1.2; // Position X of the right bar (never changes)
-
+   
    draw_bar(height, posYleft, posXleft);
    draw_bar(height, posYright, posXright);
+   getch(); // This getch is here to avoid visual bugs
+ 
+   pthread_t t1;
+   pthread_create(&t1, NULL, ball_func, NULL); // Creates a separate thread for the ball
+
    char input = '0';
    int quit = 0;
    while (quit == 0)
@@ -43,18 +50,20 @@ int main()
 
    free(posYleft);
    free(posYright);
-*/
 
+   endwin();
+   return 0;
+}
+
+void *ball_func() // This function has all the ball stuff
+{
    int *posYball = malloc(sizeof(int));
    int *posXball = malloc(sizeof(int));
    *posYball = LINES /2;
    *posXball = COLS /2;
 
-   ball_move(posYball, posXball, up_left);
+   ball_move(posYball, posXball, right);
 
    free(posYball);
    free(posXball);
-
-   endwin();
-   return 0;
 }
