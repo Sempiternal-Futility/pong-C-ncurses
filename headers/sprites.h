@@ -4,3 +4,19 @@
 
 void draw_bar(short height, int *posY, int posX); // Draws the bar that the player can control
 void erase_bar(short height, int *posY, int posX); // Erases the bar
+void draw_ball(int *posY, int *posX); // Draws the ball
+void erase_ball(int *posY, int *posX); // Erases the ball
+void ball_move(int *posY, int *posX, short dir); // Makes the ball move (last arg is the direction)
+
+enum directions // These directions are used alongside the "ball_move" func.
+{
+   // Straight directions
+   right = 0,
+   left = 1,
+
+   // Diagonal directions
+   up_right = 2,
+   up_left = 3,
+   down_right = 4,
+   down_left = 5
+};

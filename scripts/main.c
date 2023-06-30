@@ -4,6 +4,10 @@
 #include "../headers/sprites.h"
 #include "../headers/input.h"
 
+//TODO: 
+// FINISH WRITING "ball_move" function, with all directions
+// WRITE NEW THREAD FOR BALL MOVEMENT
+
 int main()
 {
    setlocale(LC_ALL, ""); // Setting locale so that wide chars are supported
@@ -13,7 +17,7 @@ int main()
    curs_set(0);
    noecho();
 
-
+/*
    short height = 6;  // Height of the bar
    
    // Left bar vars
@@ -38,6 +42,18 @@ int main()
 
    free(posYleft);
    free(posYright);
+*/
+
+   int *posYball = malloc(sizeof(int));
+   int *posXball = malloc(sizeof(int));
+   *posYball = LINES /2;
+   *posXball = COLS /2;
+
+   ball_move(posYball, posXball, right);
+
+   free(posYball);
+   free(posXball);
+
    endwin();
    return 0;
 }
