@@ -65,5 +65,100 @@ void ball_move(int *posY, int *posX, short dir)
    }
 
    else if (dir == left)
-      printw("FUCK!");
+   {
+      while (quit_loop == false)
+      {
+         draw_ball(posY, posX);
+         system("sleep 0.03s");
+         erase_ball(posY, posX);
+         *posX -= 1;
+
+         if (*posX < 1)
+            quit_loop = true;
+      }
+   }
+
+   else if (dir == up_right)
+   {
+      while (quit_loop == false)
+      {
+         draw_ball(posY, posX);
+         system("sleep 0.03s");
+         erase_ball(posY, posX);
+         *posX += 1;
+         *posY -= 1;
+
+         if (*posX > COLS)
+            quit_loop = true;
+
+         else if (*posY < 1)
+         {
+            quit_loop = true;
+            ball_move(posY, posX, down_right);
+         }
+      }
+   }
+
+   else if (dir == up_left)
+   {
+      while (quit_loop == false)
+      {
+         draw_ball(posY, posX);
+         system("sleep 0.03s");
+         erase_ball(posY, posX);
+         *posX -= 1;
+         *posY -= 1;
+
+         if (*posX < 1)
+            quit_loop = true;
+
+         else if (*posY < 1)
+         {
+            quit_loop = true;
+            ball_move(posY, posX, down_left);
+         }
+      }
+   }
+
+   else if (dir == down_right)
+   {
+      while (quit_loop == false)
+      {
+         draw_ball(posY, posX);
+         system("sleep 0.03s");
+         erase_ball(posY, posX);
+         *posX += 1;
+         *posY += 1;
+
+         if (*posX > COLS)
+            quit_loop = true;
+
+         else if (*posY > (LINES -2))
+         {
+            quit_loop = true;
+            ball_move(posY, posX, up_right);
+         }
+      }
+   }
+
+   else if (dir == down_left)
+   {
+      while (quit_loop == false)
+      {
+         draw_ball(posY, posX);
+         system("sleep 0.03s");
+         erase_ball(posY, posX);
+         *posX -= 1;
+         *posY += 1;
+
+         if (*posX < 1)
+            quit_loop = true;
+
+         else if (*posY > (LINES -2))
+         {
+            quit_loop = true;
+            ball_move(posY, posX, up_left);
+         }
+      }
+   }
 }

@@ -7,6 +7,7 @@
 //TODO: 
 // FINISH WRITING "ball_move" function, with all directions
 // WRITE NEW THREAD FOR BALL MOVEMENT
+// BALL DIAGONAL MOVEMENT IS TOO AGRESSIVE ON THE Y POSITION
 
 int main()
 {
@@ -49,7 +50,7 @@ int main()
    *posYball = LINES /2;
    *posXball = COLS /2;
 
-   ball_move(posYball, posXball, right);
+   ball_move(posYball, posXball, up_left);
 
    free(posYball);
    free(posXball);
