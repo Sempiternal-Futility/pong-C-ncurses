@@ -33,19 +33,35 @@ int main()
    *posYright = LINES /2 - (height /2); // Middle of screen
    int posXright = COLS /1.2; // Position X of the right bar (never changes)
    
+   // Draws both bars
    draw_bar(height, posYleft, posXleft);
    draw_bar(height, posYright, posXright);
-   getch(); // This getch is here to avoid visual bugs
- 
-   pthread_t t1;
-   pthread_create(&t1, NULL, ball_func, NULL); // Creates a separate thread for the ball
 
+   // Writes "PUSH START" to the middle of the screen (this is needed to avoid visual bugs)
+   move(LINES /2, COLS /2 -5);
+   printw("PUSH START");
+   getch(); // This getch is here to avoid visual bugs
+   move(LINES /2, COLS /2 -5);
+   printw("          "); 
+   refresh();
+
+   // Positions of the ball
+   int *posYball = malloc(sizeof(int));
+   int *posXball = malloc(sizeof(int));
+   *posYball = LINES /2;
+   *posXball = COLS /2;
+
+   int *args[] = {posYball, posXball, posYleft, posYright}; // This array is used to pass arguments to the "ball_func" function
+   pthread_t t1;
+   pthread_create(&t1, NULL, ball_func, args); // Creates a separate thread for the ball
+
+   // Gives control to the player
    char input = '0';
    int quit = 0;
    while (quit == 0)
    { 
       input = getch();
-      quit = move_bar(input, height, posYleft, posXleft, posYright, posXright); // Func returns 1 when 'q' is pressed btw
+      quit = move_bar(input, height, posYleft, posXleft, posYright, posXright, posYball, posXball); // Func returns 1 when 'q' is pressed btw
    }
 
    free(posYleft);
@@ -55,15 +71,10 @@ int main()
    return 0;
 }
 
-void *ball_func() // This function has all the ball stuff
+void *ball_func(int *args[]) // This function has all the ball stuff
 {
-   int *posYball = malloc(sizeof(int));
-   int *posXball = malloc(sizeof(int));
-   *posYball = LINES /2;
-   *posXball = COLS /2;
+   ball_move(args[0], args[1], args[2], args[3], right);
 
-   ball_move(posYball, posXball, right);
-
-   free(posYball);
-   free(posXball);
+   free(args[0]); // Frees posYball
+   free(args[1]); // Frees posXball
 }

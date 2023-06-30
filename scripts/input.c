@@ -1,8 +1,9 @@
 #include <ncurses.h>
+#include <stdlib.h>
 #include "../headers/input.h"
 #include "../headers/sprites.h"
 
-int move_bar(char input, short height, int *posYleft, int posXleft, int *posYright, int posXright)
+int move_bar(char input, short height, int *posYleft, int posXleft, int *posYright, int posXright, int *posYball, int *posXball)
 {
    if (input == 'w')
    {
@@ -53,7 +54,11 @@ int move_bar(char input, short height, int *posYleft, int posXleft, int *posYrig
    }
 
    else if (input == 'q')
+   {
+      free(posYball);
+      free(posXball);
       return 1;
+   }
 
    return 0;
 }

@@ -46,9 +46,11 @@ void erase_ball(int *posY, int *posX)
    refresh();
 }
 
-void ball_move(int *posY, int *posX, short dir)
+void ball_move(int *posY, int *posX, int *posYbarleft, int *posYbarright, short dir)
 {
    bool quit_loop = false;
+   int posXleft = COLS /8;
+   int posXright = COLS /1.2;
 
    if (dir == right)
    {
@@ -60,7 +62,17 @@ void ball_move(int *posY, int *posX, short dir)
          *posX += 1;
 
          if (*posX > COLS)
+         {
             quit_loop = true;
+            game_over_msg();
+         }
+
+         else if (*posX == posXright)
+         {
+            if (*posY == *posYbarright -1 || *posY == *posYbarright -2 || *posY == *posYbarright -3 || *posY == *posYbarright -4 || 
+                *posY == *posYbarright -5 || *posY == *posYbarright -6)
+               ball_move(posY, posX, posYbarleft, posYbarright, left);
+         }
       }
    }
 
@@ -74,7 +86,17 @@ void ball_move(int *posY, int *posX, short dir)
          *posX -= 1;
 
          if (*posX < 1)
+         {
             quit_loop = true;
+            game_over_msg();
+         }
+
+         else if (*posX == posXleft)
+         {
+            if (*posY == *posYbarleft -1 || *posY == *posYbarleft -2 || *posY == *posYbarleft -3 || *posY == *posYbarleft -4 || 
+                *posY == *posYbarleft -5 || *posY == *posYbarleft -6)
+               ball_move(posY, posX, posYbarleft, posYbarright, right);
+         }
       }
    }
 
@@ -89,12 +111,15 @@ void ball_move(int *posY, int *posX, short dir)
          *posY -= 1;
 
          if (*posX > COLS)
+         {
             quit_loop = true;
+            game_over_msg();
+         }
 
          else if (*posY < 1)
          {
             quit_loop = true;
-            ball_move(posY, posX, down_right);
+            ball_move(posY, posX, posYbarleft, posYbarright, down_right);
          }
       }
    }
@@ -110,12 +135,15 @@ void ball_move(int *posY, int *posX, short dir)
          *posY -= 1;
 
          if (*posX < 1)
+         {
             quit_loop = true;
+            game_over_msg();
+         }
 
          else if (*posY < 1)
          {
             quit_loop = true;
-            ball_move(posY, posX, down_left);
+            ball_move(posY, posX, posYbarleft, posYbarright, down_left);
          }
       }
    }
@@ -131,12 +159,15 @@ void ball_move(int *posY, int *posX, short dir)
          *posY += 1;
 
          if (*posX > COLS)
+         {
             quit_loop = true;
+            game_over_msg();
+         }
 
          else if (*posY > (LINES -2))
          {
             quit_loop = true;
-            ball_move(posY, posX, up_right);
+            ball_move(posY, posX, posYbarleft, posYbarright, up_right);
          }
       }
    }
@@ -152,13 +183,24 @@ void ball_move(int *posY, int *posX, short dir)
          *posY += 1;
 
          if (*posX < 1)
+         {
             quit_loop = true;
+            game_over_msg();
+         }
 
          else if (*posY > (LINES -2))
          {
             quit_loop = true;
-            ball_move(posY, posX, up_left);
+            ball_move(posY, posX, posYbarleft, posYbarright, up_left);
          }
       }
    }
+}
+
+void game_over_msg()
+{
+   clear();
+   move(LINES /2, (COLS /2 -10));
+   printw("GAME OVER");
+   getch();
 }
