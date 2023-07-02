@@ -6,8 +6,9 @@
 #include "../headers/input.h"
 
 //TODO: 
+// CHECK ALL THE HITBOX OF THE BAR WITH A CUSTOM HEIGHT (might be able to do this with a for loop)
 // BALL DIAGONAL MOVEMENT IS TOO AGRESSIVE ON THE Y POSITION
-// WRITE START MESSAGE/ASCII-ART
+// ADD DIAGONAL MOVEMENT
 
 void *ball_func();
 
@@ -75,7 +76,8 @@ int main()
 
 void *ball_func(int *args[]) // This function has all the ball stuff
 {
-   ball_move(args[0], args[1], args[2], args[3], right);
+   short height = 6;
+   ball_move(args[0], args[1], args[2], args[3], height, right);
 
    free(args[0]); // Frees posYball
    free(args[1]); // Frees posXball

@@ -46,7 +46,7 @@ void erase_ball(int *posY, int *posX)
    refresh();
 }
 
-void ball_move(int *posY, int *posX, int *posYbarleft, int *posYbarright, short dir)
+void ball_move(int *posY, int *posX, int *posYbarleft, int *posYbarright, short height, short dir)
 {
    bool quit_loop = false;
    int posXleft = COLS /8;
@@ -69,9 +69,27 @@ void ball_move(int *posY, int *posX, int *posYbarleft, int *posYbarright, short 
 
          else if (*posX == posXright)
          {
+            /*
             if (*posY == *posYbarright -1 || *posY == *posYbarright -2 || *posY == *posYbarright -3 || *posY == *posYbarright -4 || 
                 *posY == *posYbarright -5 || *posY == *posYbarright -6)
-               ball_move(posY, posX, posYbarleft, posYbarright, left);
+               ball_move(posY, posX, posYbarleft, posYbarright, left);*/
+
+            bool check = false;
+
+            for (short i = -5; i < height; i++)
+            {
+               if (*posY == (*posYbarright - height))
+               {
+                  check = true;
+                  break;
+               }
+
+               height -= 1;
+            }
+
+            height = 6; // Resets height to its standard value
+            if (check == true)
+               ball_move(posY, posX, posYbarleft, posYbarright, height, left);
          }
       }
    }
@@ -95,7 +113,7 @@ void ball_move(int *posY, int *posX, int *posYbarleft, int *posYbarright, short 
          {
             if (*posY == *posYbarleft -1 || *posY == *posYbarleft -2 || *posY == *posYbarleft -3 || *posY == *posYbarleft -4 || 
                 *posY == *posYbarleft -5 || *posY == *posYbarleft -6)
-               ball_move(posY, posX, posYbarleft, posYbarright, right);
+               ball_move(posY, posX, posYbarleft, posYbarright, height, right);
          }
       }
    }
@@ -119,7 +137,7 @@ void ball_move(int *posY, int *posX, int *posYbarleft, int *posYbarright, short 
          else if (*posY < 1)
          {
             quit_loop = true;
-            ball_move(posY, posX, posYbarleft, posYbarright, down_right);
+            ball_move(posY, posX, posYbarleft, posYbarright, height, down_right);
          }
       }
    }
@@ -143,7 +161,7 @@ void ball_move(int *posY, int *posX, int *posYbarleft, int *posYbarright, short 
          else if (*posY < 1)
          {
             quit_loop = true;
-            ball_move(posY, posX, posYbarleft, posYbarright, down_left);
+            ball_move(posY, posX, posYbarleft, posYbarright, height, down_left);
          }
       }
    }
@@ -167,7 +185,7 @@ void ball_move(int *posY, int *posX, int *posYbarleft, int *posYbarright, short 
          else if (*posY > (LINES -2))
          {
             quit_loop = true;
-            ball_move(posY, posX, posYbarleft, posYbarright, up_right);
+            ball_move(posY, posX, posYbarleft, posYbarright, height, up_right);
          }
       }
    }
@@ -191,7 +209,7 @@ void ball_move(int *posY, int *posX, int *posYbarleft, int *posYbarright, short 
          else if (*posY > (LINES -2))
          {
             quit_loop = true;
-            ball_move(posY, posX, posYbarleft, posYbarright, up_left);
+            ball_move(posY, posX, posYbarleft, posYbarright, height, up_left);
          }
       }
    }
