@@ -6,7 +6,6 @@
 #include "../headers/input.h"
 
 //TODO: 
-// CHECK ALL THE HITBOX OF THE BAR WITH A CUSTOM HEIGHT (might be able to do this with a for loop)
 // BALL DIAGONAL MOVEMENT IS TOO AGRESSIVE ON THE Y POSITION
 // ADD DIAGONAL MOVEMENT
 

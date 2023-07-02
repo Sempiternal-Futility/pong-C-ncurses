@@ -67,16 +67,11 @@ void ball_move(int *posY, int *posX, int *posYbarleft, int *posYbarright, short 
             game_over_msg();
          }
 
-         else if (*posX == posXright)
+         else if (*posX == (posXright -1))
          {
-            /*
-            if (*posY == *posYbarright -1 || *posY == *posYbarright -2 || *posY == *posYbarright -3 || *posY == *posYbarright -4 || 
-                *posY == *posYbarright -5 || *posY == *posYbarright -6)
-               ball_move(posY, posX, posYbarleft, posYbarright, left);*/
-
             bool check = false;
 
-            for (short i = -5; i < height; i++)
+            for (short i = -(height -1); i < height; i++)
             {
                if (*posY == (*posYbarright - height))
                {
