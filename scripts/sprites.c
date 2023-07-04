@@ -69,21 +69,40 @@ void ball_move(int *posY, int *posX, int *posYbarleft, int *posYbarright, short 
 
          else if (*posX == (posXright -1))
          {
-            bool check = false;
+            bool check_up = false; // If true, ball "bounces" diagonal up
+            bool check_down = false; // If true, ball "bounces" diagonal down
+            bool check_straight = false; // If true, ball "bounces" straight
 
-            for (short i = -(height -1); i < height; i++)
+            for (short i = 0, height_straight = height; i < height; i++)
             {
-               if (*posY == (*posYbarright - height))
+               if (*posY == (*posYbarright - 1) || *posY == (*posYbarright - 2))
                {
-                  check = true;
+                  check_up = true;
                   break;
                }
 
-               height -= 1;
-            }
+               else if (*posY == (*posYbarright - height) || *posY == (*posYbarright - (height -1)))
+               {
+                  check_down = true;
+                  break;
+               }
 
-            height = 6; // Resets height to its standard value
-            if (check == true)
+               else if (*posY == (*posYbarright - height_straight))
+               {
+                  check_straight = true;
+                  break;
+               }
+
+               height_straight -= 1;
+            }
+            
+            if (check_up == true)
+               ball_move(posY, posX, posYbarleft, posYbarright, height, up_left);
+
+            else if (check_down == true)
+               ball_move(posY, posX, posYbarleft, posYbarright, height, down_left);
+
+            else if (check_straight == true)
                ball_move(posY, posX, posYbarleft, posYbarright, height, left);
          }
       }
