@@ -123,11 +123,43 @@ void ball_move(int *posY, int *posX, int *posYbarleft, int *posYbarright, short 
             game_over_msg();
          }
 
-         else if (*posX == posXleft)
+         else if (*posX == (posXleft +2))
          {
-            if (*posY == *posYbarleft -1 || *posY == *posYbarleft -2 || *posY == *posYbarleft -3 || *posY == *posYbarleft -4 || 
-                *posY == *posYbarleft -5 || *posY == *posYbarleft -6)
-               ball_move(posY, posX, posYbarleft, posYbarright, height, right);
+            bool check_up = false; // If true, ball "bounces" diagonal up
+            bool check_down = false; // If true, ball "bounces" diagonal down
+            bool check_straight = false; // If true, ball "bounces" straight
+
+            for (short i = 0, height_straight = height; i < height; i++)
+            {
+               if (*posY == (*posYbarleft - 1) || *posY == (*posYbarleft - 2))
+               {
+                  check_up = true;
+                  break;
+               }
+
+               else if (*posY == (*posYbarleft - height) || *posY == (*posYbarleft - (height -1)))
+               {
+                  check_down = true;
+                  break;
+               }
+
+               else if (*posY == (*posYbarleft - height_straight))
+               {
+                  check_straight = true;
+                  break;
+               }
+
+               height_straight -= 1;
+            }
+            
+            if (check_up == true)
+               ball_move(posY, posX, posYbarleft, posYbarleft, height, up_right);
+
+            else if (check_down == true)
+               ball_move(posY, posX, posYbarleft, posYbarleft, height, down_right);
+
+            else if (check_straight == true)
+               ball_move(posY, posX, posYbarleft, posYbarleft, height, right);
          }
       }
    }
