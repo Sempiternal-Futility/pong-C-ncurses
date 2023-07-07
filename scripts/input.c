@@ -2,54 +2,57 @@
 #include "../headers/input.h"
 #include "../headers/sprites.h"
 
-int move_bar(char input, short height, int *posYleft, int posXleft, int *posYright, int posXright)
+int move_bar(char input, short height, int *posYleft, int posXleft, int *posYright, int posXright, int player_lost)
 {
-   if (input == 'w')
+   if (player_lost == 0) // If the player didn't lose yet
    {
-      erase_bar(height, posYleft, posXleft);
+      if (input == 'w')
+      {
+         erase_bar(height, posYleft, posXleft);
 
-      if (*posYleft > height) // Checks if the bar has hit the boundary (top) of the screen
-         *posYleft -= (height +1);
-      else
-         *posYleft -= (height -1);
+         if (*posYleft > height) // Checks if the bar has hit the boundary (top) of the screen
+            *posYleft -= (height +1);
+         else
+            *posYleft -= (height -1);
 
-      draw_bar(height, posYleft, posXleft);
-   }
+         draw_bar(height, posYleft, posXleft);
+      }
 
-   else if (input == 's')
-   {
-      erase_bar(height, posYleft, posXleft);
+      else if (input == 's')
+      {
+         erase_bar(height, posYleft, posXleft);
 
-      if (*posYleft < LINES) // Checks if the bar has hit the boundary (bottom) of the screen
-         *posYleft -= (height -1);
-      else
-         *posYleft -= (height +1);
+         if (*posYleft < LINES) // Checks if the bar has hit the boundary (bottom) of the screen
+            *posYleft -= (height -1);
+         else
+            *posYleft -= (height +1);
 
-      draw_bar(height, posYleft, posXleft);
-   }
+         draw_bar(height, posYleft, posXleft);
+      }
 
-   else if (input == 'k')
-   {
-      erase_bar(height, posYright, posXright);
+      else if (input == 'k')
+      {
+         erase_bar(height, posYright, posXright);
       
-      if (*posYright > height)
-         *posYright -= (height +1);
-      else
-         *posYright -= (height -1);
+         if (*posYright > height)
+            *posYright -= (height +1);
+         else
+            *posYright -= (height -1);
 
-      draw_bar(height, posYright, posXright);
-   }
+         draw_bar(height, posYright, posXright);
+      }
 
-   else if (input == 'j')
-   {
-      erase_bar(height, posYright, posXright);
+      else if (input == 'j')
+      {
+         erase_bar(height, posYright, posXright);
 
-      if (*posYright < LINES)
-         *posYright -= (height -1);
-      else
-         *posYright -= (height +1);
+         if (*posYright < LINES)
+            *posYright -= (height -1);
+         else
+            *posYright -= (height +1);
 
-      draw_bar(height, posYright, posXright);
+         draw_bar(height, posYright, posXright);
+      }
    }
 
    else if (input == 'q')
